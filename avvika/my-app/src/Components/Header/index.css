@@ -1,0 +1,226 @@
+.header-main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.first-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.hr-container {
+    border-bottom: 1px solid #cac8e8;
+    width: 100%;
+}
+
+.header-home-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 85%;
+}
+
+
+.top-section-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-top-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.header-middle-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 85%;
+}
+
+.middle-item-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.border-botom {
+    border-bottom: 2px solid #11099a;
+}
+
+.icon-btn {
+    border: none;
+    background-color: transparent;
+    padding-right: 4px;
+}
+
+.lower-item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 65%;
+
+}
+
+.lower-item {
+    font-size: 16px;
+    font-weight: 700;
+    list-style-type: none;
+    background-color: transparent;
+    /* padding: 19px; */
+    border: none;
+}
+
+/* .menu-styles {
+    position: absolute;
+    z-index: 1;
+    margin-top: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: '#fff';
+    min-width: 85%;
+    box-shadow: '0px 8px 16px 0px rgba(0,0,0,0.2)';
+} */
+
+/* .menu-style1{
+    margin-top: 220px;
+} */
+
+.menu-styles1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.menu-styles {
+    position: fixed;
+    z-index: 1;
+    margin-top: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0efef !important;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border: 1px solid #000;
+    padding: 20px;
+    min-width: 85%;
+    box-shadow: '0px 8px 16px 0px rgba(0,0,0,0.2)';
+}
+
+.menustyle-main{
+    display: flex;
+    width: 88%;
+    height: 60vh;
+    position: fixed;
+    margin-top: 320px;
+    /* background-color: #f0efef !important; */
+}
+
+/* .item-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+} */
+
+.close-button{
+    background-color: red;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+
+.menu-styles-category{
+    position: fixed;
+    z-index: 1;
+    margin-top: 10px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* align-self: flex-start; */
+    background-color: #f0efef !important;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: '0px 8px 16px 0px rgba(0,0,0,0.2)';
+    height: 50vh;
+    width: 33%;
+    flex-wrap: wrap;
+}
+
+.lower-item:hover {
+    color: rgb(12, 12, 216);
+    text-decoration: underline;
+  }
+
+.lower-item-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #d9d9e1;
+    border-bottom: 1px solid #d9d9e1;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.bg-color {
+    background-color: #fff;
+    border-bottom: 1px solid #d9d9e1;
+    min-width: 95%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.show-popup {
+    z-index: 1;
+    position: absolute;
+    margin-top: 2px;
+    height: 300px;
+    width: 150px;
+    background-color: #9896c5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    opacity: 1;
+}
+
+.item-icon-list {
+    list-style-type: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+}
+
+.link{
+    font-size: 20px;
+    font-weight: 500;
+    color: #000;
+    list-style-type: none;
+    text-decoration: none;
+
+}
