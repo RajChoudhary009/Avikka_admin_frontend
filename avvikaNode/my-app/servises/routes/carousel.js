@@ -20,6 +20,7 @@ const carouselController = require('../controllers/carouselController')
 route.post('/api/carousel', upload.single('image_url'), carouselController.banner)
 route.get('/api/carousel/all', carouselController.getAllData)
 route.get('/api/carousel/:id', carouselController.getbyId)
+route.get('/api/carousel/all/filter', carouselController.filterData)
 route.delete('/api/carousel/delete/:id', carouselController.deleteBannerById)
 route.put('/api/carousel/edit/:id', carouselController.editBannerById)
 

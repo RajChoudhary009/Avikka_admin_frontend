@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import { FaMobileAlt } from "react-icons/fa";
 import { AiOutlineSearch, AiOutlineHeart } from "react-icons/ai";
@@ -8,19 +9,52 @@ import { LiaGrinHeartsSolid } from "react-icons/lia";
 import "./index.css";
 
 const Header = () => {
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
+  const [item, setItem] = useState([]);
+  const [menu, setMenu] = useState("Makeup");
+
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const [isActive, setIsActive] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [cartlength, setCartItems] = useState("")
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // First API call
+        const response1 = await axios.get('http://localhost:8000/api/categories/all');
+        setCategories(response1.data);
+
+        // Second API call
+        const response2 = await axios.get('http://localhost:8000/api/subCategories/all');
+        setSubcategories(response2.data);
+
+        // third API call
+        const response3 = await axios.get('http://localhost:8000/api/item/all');
+        setItem(response3.data);
+
+        const cartItemsFromLocalStorage = JSON.parse(localStorage.getItem('cart')) || [];
+        const length = cartItemsFromLocalStorage.length
+        setCartItems(length)
+        console.log("length", length)
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const onChangeMenu = (data) => {
+    setMenu(data)
+  }
 
   const openMenu = () => {
     setMenuVisible(!menuVisible); // Use menuVisible here instead of visible
   };
-
-  // const closeMenu = () => {
-  //   setMenuVisible(false);
-  // };
-
 
   const showPopup = () => {
     setIsActive(!isActive)
@@ -38,81 +72,6 @@ const Header = () => {
     setVisible(currentScrollPos < 20);
     setPrevScrollPos(currentScrollPos);
   };
-
-  const categoriesData = [
-    {
-      name: 'Makeup',
-      subcategories: [
-        {
-          name: 'Face Makeup',
-          value: 'facemakeup',
-          subcategories: [
-            { name: 'home' },
-            { name: 'Concealer' },
-            { name: 'Foundation' },
-          ],
-        },
-
-        {
-          name: 'Eye Makeup',
-          value: 'eyemakeup',
-          subcategories: [
-            { name: 'Eyeshadow' },
-            { name: 'Eyeliner' },
-            { name: 'Mascara' },
-          ],
-        },
-        {
-          name: 'Lip Makeup',
-          value: 'lipmakeup',
-          subcategories: [
-            { name: 'Lipstick' },
-            { name: 'Lip Gloss' },
-          ],
-        },
-      ],
-    },
-
-    {
-      name: 'Skincare',
-      value: 'Skincare',
-      subcategories: [
-        { name: 'Cleanser' },
-        { name: 'Moisturizer' },
-        { name: 'Sunscreen' },
-        { name: 'Facewash' },
-      ],
-    },
-
-    {
-      name: 'Haircare',
-      value: 'Haircare',
-      subcategories: [
-        { name: 'Shampoo' },
-        { name: 'Conditioner' },
-        { name: 'Hair Serum' },
-      ],
-    },
-
-    {
-      name: 'facewash',
-      value: 'Skincare',
-      subcategories: [
-        { name: 'Shampoo' },
-        { name: 'Conditioner' },
-        { name: 'Hair Serum' },
-      ],
-    },
-    {
-      name: 'facepack',
-      value: 'Skincare',
-      subcategories: [
-        { name: 'Shampoo' },
-        { name: 'Conditioner' },
-        { name: 'Hair Serum' },
-      ],
-    },
-  ];
 
   return (
     <>
@@ -139,38 +98,46 @@ const Header = () => {
               </h2>
             </div>
             <div className="middle-item-container">
-              <img
-                src="https://advikka.com/image/catalog/logo.png"
-                alt=""
-                style={{ width: "150px" }}
-              />
+              <Link to="/">
+                <img
+                  src="https://advikka.com/image/catalog/logo.png"
+                  alt=""
+                  style={{ width: "150px" }}
+                />
+              </Link>
               {/* <img src="https://media6.ppl-media.com/mediafiles/ecomm/promo/1537798844_try-logo-3x.png" alt="TryElite" style={{height:"40px"}}/> */}
             </div>
             <div className="middle-item-container">
+              <button type="button" className="icon-btn">
+                <Link to="/favarate-profile" style={{ marginRight: "15px" }}>
+                  <AiOutlineHeart size={30} color={"black"} />
+                </Link>
+              </button>
               <button type="button" className="icon-btn" onClick={showPopup}>
-                <h1 style={{ width: "50px" }}>
-                  <AiOutlineHeart />
-                </h1>
+                <Link style={{ marginRight: "15px" }}>
+                  <LiaGrinHeartsSolid size={30} color={"black"} />
+                </Link>
+
                 {isActive && <ul className="show-popup">
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
+                  <button type="button" className="sign-button">Sign in</button>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>New Customer?</Link>
+                  <Link className="item-icon-list pink-color" style={{ textDecoration: "none" }}>Start here</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Your Orders</Link>
+
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Your Account</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Elite Membership</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Your Beaity Profile</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Your Wishlist</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Purplle Credite</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Become a Seller?</Link>
+                  <Link className="item-icon-list pink-color" style={{ textDecoration: "none" }}>Register Now</Link>
                 </ul>}
               </button>
               <button type="button" className="icon-btn">
-                <h1 style={{ width: "50px" }}>
-                  <LiaGrinHeartsSolid />
-                </h1>
-              </button>
-              <button type="button" className="icon-btn">
-                <h1 style={{ width: "50px" }}>
-                  <AiOutlineHeart />
-                </h1>
+                <Link to="/addto-cart" style={{ marginRight: "15px" }}>
+                  <AiOutlineHeart size={30} color={"black"} />
+                </Link>
+                {cartlength > 0 ? (<p style={{ color: "#6600FF", fontSize: "17px", paddingLeft: "0" }}>({cartlength})</p>) : null}
               </button>
             </div>
           </div>
@@ -214,30 +181,41 @@ const Header = () => {
             </div>
 
             <div className="middle-item-container">
+              <button type="button" className="icon-btn">
+                <Link style={{ marginRight: "15px" }}>
+                  <AiOutlineSearch size={30} color={"black"} />
+                </Link>
+              </button>
+
+              <button type="button" className="icon-btn">
+                <Link to="/favarate-profile" style={{ marginRight: "15px" }}>
+                  <AiOutlineHeart size={30} color={"black"} />
+                </Link>
+              </button>
               <button type="button" className="icon-btn" onClick={showPopup}>
-                <h1 style={{ width: "50px" }}>
-                  <AiOutlineHeart />
-                </h1>
-                {isActive && <ul className="show-popup">
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
-                  <li className="item-icon-list">mmm</li>
+                <Link style={{ marginRight: "15px" }}>
+                  <LiaGrinHeartsSolid size={30} color={"black"} />
+                </Link>
+                {isActive && <ul className="show-popup2">
+                  <button type="button" className="sign-button">Sign in</button>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>New Customer?</Link>
+                  <Link className="item-icon-list pink-color" style={{ textDecoration: "none" }}>Start here</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Your Orders</Link>
+
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Your Account</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Elite Membership</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Your Beaity Profile</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Your Wishlist</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Purplle Credite</Link>
+                  <Link className="item-icon-list" style={{ textDecoration: "none" }}>Become a Seller?</Link>
+                  <Link className="item-icon-list pink-color" style={{ textDecoration: "none" }}>Register Now</Link>
                 </ul>}
               </button>
               <button type="button" className="icon-btn">
-                <h1 style={{ width: "50px" }}>
-                  <LiaGrinHeartsSolid />
-                </h1>
-              </button>
-              <button type="button" className="icon-btn">
-                <h1 style={{ width: "50px" }}>
-                  <AiOutlineHeart />
-                </h1>
+                <Link to="/addto-cart" style={{ marginRight: "15px" }}>
+                  <AiOutlineHeart size={30} color={"black"} />
+                </Link>
+                {cartlength > 0 ? (<p style={{ color: "#6600FF", fontSize: "17px", paddingLeft: "0" }}>({cartlength})</p>) : null}
               </button>
             </div>
           </div>
@@ -247,31 +225,36 @@ const Header = () => {
       {menuVisible && (
         <div className="menu-styles1">
           <div className="menu-styles">
-            {categoriesData.map((eachmenu, menuindex)=>
-               <Link to={eachmenu.name} key={menuindex} className="link" >{eachmenu.name}</Link>
+            {categories.map((eachmenu, menuindex) =>
+              <div className="button-wrap" key={menuindex}>
+                <button type="button" className="link" onClick={() => onChangeMenu(eachmenu.categories_name)}>{eachmenu.categories_name}</button>
+              </div>
             )}
           </div>
           {menuVisible && (
-            <div className="menustyle-main" style={{ backgroundColor: "#f0efef" }}>
-
-              <div className="menu-styles-category">
+            <>
+              {/* <button className="close-button" onMouseEnter={openMenu}>Close Menu</button> */}
+              <div className="menustyle-main" style={{ backgroundColor: "#f0efef" }}>
                 <button className="close-button" onMouseEnter={openMenu}>Close Menu</button>
-                {categoriesData.map((eachCat, index) =>
-                  <ul className="item-row" key={index}>
-                    <li>{eachCat.name}</li>
-                    <ul>{eachCat.subcategories.map((eachsubcat, subIndex) =>
-                      <Link to={`/filter-page/${eachsubcat.value}`}>
-                        <li key={subIndex}>{eachsubcat.name}</li>
-                      </Link>
-                      
-                    )}
-                    </ul>
-                  </ul>
-                )}
-                
+                <div className="menu-styles-category">
+                  {subcategories.map((eachCat, index) =>
+                    menu === eachCat.categories_name ? (
+                      <ul className="item-row" key={index}>
+                        <li className="subcategories">{eachCat.subCetegories_name}</li>
+                        <ul>{item.map((eachItem, subIndex) =>
+                          eachCat.subCetegories_name === eachItem.subCetegories_name ? (
+                            <Link to={`/filter-page/${eachItem.item_name}`} key={subIndex}>
+                              <li key={subIndex} className="subcategories-item" style={{ listStyleType: "none", textDecoration: "none" }}>{eachItem.item_name}</li>
+                            </Link>) : null
+                        )}
+                        </ul>
+                      </ul>
+                    ) : null
+                  )}
 
+                </div>
               </div>
-            </div>
+            </>
           )}
         </div>
       )}

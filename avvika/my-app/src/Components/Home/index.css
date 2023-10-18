@@ -12,13 +12,14 @@
     justify-content: center;
     align-items: center;
     width: 85%;
+    z-index: 1000;
 }
 
 .carousel-main-container{
     width: 100%;
     margin-bottom: 20px;
     padding-bottom: 20px;
-    z-index: -1;
+    z-index: 1000;
 }
 
 /* first crousel */
@@ -50,21 +51,20 @@
     justify-content: flex-start;
     align-items: flex-start;
     width: 220px;
-    height: 270px;
-    padding-bottom: 100px !important;
+    height: auto;
+    padding-bottom: 20px;
 }
 
 .carousel-image2{
     position: relative;
     width: 220px;
-    height: 250px;
+    height: 230px;
 }
 
 .offers-description{
     display: flex;
     position: absolute;
-    top: 222px;
-    
+    top: 205px;
     background-color: #dfd4d4;
     color: palevioletred;
     width: 70px;
@@ -118,7 +118,6 @@
     background-color: transparent;
     width: 90%;
     height: 35px;
-    margin-bottom: 20px;
     border-radius: 4px;
 }
 
@@ -157,7 +156,7 @@
     margin-bottom: 15px;
 }
 .seven-crousel-item{
-    width: 620px;
+    width: 50%;
 }
 
 .seven-carousel-image-mini{

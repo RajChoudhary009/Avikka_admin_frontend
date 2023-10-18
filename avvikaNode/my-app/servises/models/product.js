@@ -3,6 +3,13 @@ const { database } = require("../connection/database"); // Import your Sequelize
 
 
 const products = database.define('products', {
+    product_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+    },
+
     product_categories: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -34,48 +41,73 @@ const products = database.define('products', {
     product_price: {
         type: DataTypes.INTEGER,
         allowNull: false
-    },
 
-    discount_price: {
-        type: DataTypes.INTEGER,
+    },
+    product_thumnail_img: {
+        type: DataTypes.STRING,
         allowNull: false
-    },
 
-    discount_percentes: {
-        type: DataTypes.INTEGER,
-        allowNull: false
     },
-
-    color:{
-        type:DataTypes.STRING,
-        allowNull:false
-    },
-
-    image_url:{
-        type:DataTypes.STRING,
-        allowNull:false
-    },
-
     product_ad: {
         type: DataTypes.BOOLEAN,
-        allowNull: true
+        allowNull: false
     },
-    count_in_stock: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        defaultValue: 0,
-
+    count_in_stock:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        defaultValue:0,
+        
     },
     offer: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
     },
-    rating: {
+    rating:{
         type: DataTypes.FLOAT,
         allowNull: true
 
     },
-})
+    discount:{
+        type: DataTypes.FLOAT,
+        allowNull: true
+
+    },
+    ideal_for: {
+        type: DataTypes.JSON, // Replace STRING with the appropriate data type for your array elements
+        allowNull: true
+    },
+    product_work_for: {
+        type: DataTypes.JSON, // Replace STRING with the appropriate data type for your array elements
+        allowNull: true
+    },
+    highlights:{
+        type: DataTypes.STRING,
+        allowNull: true
+
+    },
+    product_expiry_date:{
+        type: DataTypes.STRING,
+        allowNull: false
+
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), // Set the default value to the current timestamp
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        onUpdate: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+      },
+      
+},
+{
+    timestamps: false,
+    freezeTableName: true,
+
+}
+)
 
 module.exports = products;
 
+// Products.belongsTo(Brand,{foreignKey:'brand_id'})

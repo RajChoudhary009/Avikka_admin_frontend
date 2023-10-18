@@ -1,5 +1,5 @@
+const { Op } = require('sequelize');
 const carousel = require('../models/carousel');
-const products = require('../models/product');
 
 const banner = async (req, res) => {
     const product_categories = req.body.product_categories;
@@ -96,7 +96,7 @@ const editBannerById = async (req, res) => {
             return res.status(404).json({ error: 'Banner not found' });
         }
         // Update the banner's properties
-        await banner.update({
+        await carousel.update({
             product_categories,
             brand_name,
             place,
@@ -109,11 +109,46 @@ const editBannerById = async (req, res) => {
         );
 
         // Respond with the updated banner
-        res.status(200).json({ updatedBanner: banner, message: 'Banner updated successfully' });
+        const updatedData = await carousel.findByPk(bannerId);
+        res.status(200).json({ updatedBanner: updatedData, message: 'Banner updated successfully' });
     } catch (error) {
         console.error('Error editing carousel banner by ID:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-module.exports = { banner, getAllData, getbyId, deleteBannerById, editBannerById }
+const filterData = async (req, res) => {
+
+    try {
+        // Example query parameters: /api/products?product_categories=category&brand_name=brand1
+        const queryParameters = req.query;
+
+        // Build a filter object based on query parameters
+        const filter = {
+            [Op.or]: [],
+        };
+
+        // Check if product_categories is present and add it to the filter[Op.or] array
+        if (queryParameters.product_categories) {
+            filter[Op.or].push({ product_categories: queryParameters.product_categories });
+        }
+
+        // Check if brand_name is present and add it to the filter[Op.or] array
+        if (queryParameters.brand_name) {
+            filter[Op.or].push({ brand_name: queryParameters.brand_name });
+        }
+
+        // Fetch products based on the filter
+        const data = await carousel.findAll({
+            where: filter,
+        });
+
+        // Respond with the filtered products
+        res.status(200).send(data);
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+module.exports = { banner, getAllData, getbyId, deleteBannerById, editBannerById, filterData }

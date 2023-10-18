@@ -10,8 +10,14 @@ const app = express();
 const registration = require('./servises/routes/registration');
 const carousel = require('./servises/routes/carousel');
 const products = require('./servises/routes/products');
+const categories = require('./servises/routes/categories');
+const subCategories = require('./servises/routes/subCategories');
+const item = require('./servises/routes/item')
+const addtocart = require('./servises/routes/addtocart')
+const brand = require('./servises/routes/brand')
 
-testDbConnection()
+
+testDbConnection();
 
 let PORT = process.env.PORT || 8000;
 
@@ -26,6 +32,12 @@ app.use('/uploads',express.static("uploads"));
 app.use('/', registration); 
 app.use('/', carousel);
 app.use('/', products);
+app.use('/', categories);
+app.use('/', subCategories);
+app.use('/', item);
+app.use('/', addtocart);
+app.use('/', brand);
+
 
 app.get('/hello', (req, res)=>{
   res.send({'message': 'hello user i am here'})
