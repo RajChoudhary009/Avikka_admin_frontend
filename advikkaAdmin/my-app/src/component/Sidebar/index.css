@@ -1,0 +1,75 @@
+.sidebar-main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #212529;
+}
+
+.avvika-heading{
+    color: #e83e8c;
+    font-size: 40px;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.sidebar-home-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    border-top: 1px solid #000;
+    /* padding-left: 40px; */
+}
+
+.list-item-container{
+    width: 100%;
+    /* background-color: #6610f2; */
+    background-color: #212529;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-bottom: 5px */
+    /* color: #502c89; */
+}
+
+.list-item-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 50px;
+}
+
+.list-item-main-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+    height: 30px;
+    padding: 10px;
+}
+
+.icons{
+    color: #fff;
+}
+
+.item-heading:hover {
+    color: #1570ca; /* Change the color to your desired hover color */
+    cursor: pointer;
+}
+
+.hover-effect:hover{
+    color: #163a61; /* Change the color to your desired hover color */
+    cursor: pointer;
+}
+
+.item-heading{
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    padding-left: 10px;
+}
+
